@@ -1,10 +1,11 @@
-import ProductCard, { ProductCardProps } from '../../../component/ProductCard';
+import { Product } from '../../../api/apiType';
+import ProductCard from '../../../component/ProductCard';
 import { useCart } from '../../../context/CartContext';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 interface ProductCardsListProps {
-	products: Omit<ProductCardProps, 'addToCart'>[];
+	products: Product[];
 }
 
 const ProductCardsList = (props: ProductCardsListProps) => {
