@@ -1,0 +1,185 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 1 Image",
+      "heading": "Product 1",
+      "description": "Description for Product 1.",
+      "category": "electronics",
+      "price": 99.99
+    },
+    {
+      "id": 2,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 2 Image",
+      "heading": "Product 2",
+      "description": "Description for Product 2.",
+      "category": "clothing",
+      "price": 49.99
+    },
+    {
+      "id": 3,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 3 Image",
+      "heading": "Product 3",
+      "description": "Description for Product 3.",
+      "category": "food",
+      "price": 5.99
+    },
+    {
+      "id": 4,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 4 Image",
+      "heading": "Product 4",
+      "description": "Description for Product 4.",
+      "category": "books",
+      "price": 24.99
+    },
+    {
+      "id": 5,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 5 Image",
+      "heading": "Product 5",
+      "description": "Description for Product 5.",
+      "category": "electronics",
+      "price": 199.99
+    },
+    {
+      "id": 6,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 6 Image",
+      "heading": "Product 6",
+      "description": "Description for Product 6.",
+      "category": "clothing",
+      "price": 29.99
+    },
+    {
+      "id": 7,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 7 Image",
+      "heading": "Product 7",
+      "description": "Description for Product 7.",
+      "category": "food",
+      "price": 8.99
+    },
+    {
+      "id": 8,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 8 Image",
+      "heading": "Product 8",
+      "description": "Description for Product 8.",
+      "category": "books",
+      "price": 39.99
+    },
+    {
+      "id": 9,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 9 Image",
+      "heading": "Product 9",
+      "description": "Description for Product 9.",
+      "category": "electronics",
+      "price": 149.99
+    },
+    {
+      "id": 10,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 10 Image",
+      "heading": "Product 10",
+      "description": "Description for Product 10.",
+      "category": "clothing",
+      "price": 59.99
+    },
+    {
+      "id": 11,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 11 Image",
+      "heading": "Product 11",
+      "description": "Description for Product 11.",
+      "category": "food",
+      "price": 12.99
+    },
+    {
+      "id": 12,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 12 Image",
+      "heading": "Product 12",
+      "description": "Description for Product 12.",
+      "category": "books",
+      "price": 49.99
+    },
+    {
+      "id": 13,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 13 Image",
+      "heading": "Product 13",
+      "description": "Description for Product 13.",
+      "category": "electronics",
+      "price": 79.99
+    },
+    {
+      "id": 14,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 14 Image",
+      "heading": "Product 14",
+      "description": "Description for Product 14.",
+      "category": "clothing",
+      "price": 34.99
+    },
+    {
+      "id": 15,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 15 Image",
+      "heading": "Product 15",
+      "description": "Description for Product 15.",
+      "category": "food",
+      "price": 6.99
+    },
+    {
+      "id": 16,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 16 Image",
+      "heading": "Product 16",
+      "description": "Description for Product 16.",
+      "category": "books",
+      "price": 19.99
+    },
+    {
+      "id": 17,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 17 Image",
+      "heading": "Product 17",
+      "description": "Description for Product 17.",
+      "category": "electronics",
+      "price": 129.99
+    },
+    {
+      "id": 18,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 18 Image",
+      "heading": "Product 18",
+      "description": "Description for Product 18.",
+      "category": "clothing",
+      "price": 44.99
+    },
+    {
+      "id": 19,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 19 Image",
+      "heading": "Product 19",
+      "description": "Description for Product 19.",
+      "category": "food",
+      "price": 9.99
+    },
+    {
+      "id": 20,
+      "imgSrc": "https://picsum.photos/200",
+      "imgAltText": "Product 20 Image",
+      "heading": "Product 20",
+      "description": "Description for Product 20.",
+      "category": "books",
+      "price": 59.99
+    }
+  ],
+  "categories": ["electronics", "clothing", "food", "books"]
+}
