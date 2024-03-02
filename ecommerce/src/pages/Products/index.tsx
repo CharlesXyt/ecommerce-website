@@ -8,10 +8,9 @@ import Filter from '../../component/Filter';
 import { Box, Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { Product } from '../../api/apiType';
-import { GET_CATEGORY_URL, GET_PRODUCTS_URL } from '../../api/apiEndpoint';
-import { set } from 'lodash';
-
-const PageLimit = 10;
+import { fetchCategories, fetchProducts } from '../../api/apiClient';
+import { getDebounceSearch } from './helper';
+import { PageLimit } from '../../api/apiConstant';
 
 const Products = () => {
 	const [products, setProducts] = useState<Product[]>([]);
@@ -26,40 +25,31 @@ const Products = () => {
 	const productCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
 	useEffect(() => {
-		const fetchProducts = async () => {
-			const response = await fetch(GET_PRODUCTS_URL);
-			const responseJson = await response.json();
-			setProducts(responseJson.data);
-		};
-		const fetchCategories = async () => {
-			const response = await fetch(GET_CATEGORY_URL);
-			const responseJson = await response.json();
-			setCategories(responseJson);
-		};
-		try {
-			Promise.all([fetchProducts(), fetchCategories()]);
-		} catch (error) {
-			console.error('Error fetching products', error);
-		}
+		Promise.all([fetchProducts(), fetchCategories()])
+			.then(([products, categories]) => {
+				setProducts(products.data);
+				setCategories(categories);
+			})
+			.catch(error => {
+				console.error('Error fetching products', error);
+			});
 	}, []);
 
 	const debounceSearch = useCallback(
-		_debounce((searchTerm: string, filterTerm: string, page: number) => {
-			const fetchData = async () => {
-				const response = await fetch(
-					`${GET_PRODUCTS_URL}?search=${searchTerm}&category=${filterTerm}&_page=${page}&_limit=${PageLimit}`,
+		async (searchTerm: string, filterTerm: string, currentPage: number) => {
+			try {
+				const responseJson = await getDebounceSearch(
+					searchTerm,
+					filterTerm,
+					currentPage,
 				);
-				const responseJson = await response.json();
 				setProducts(responseJson.data);
 				setPageTotal(Math.ceil(responseJson.total / PageLimit));
 				setCurrentPage(responseJson.page);
-			};
-			try {
-				fetchData();
 			} catch (error) {
-				console.error('Error fetching products', error);
+				console.log(error);
 			}
-		}, 300),
+		},
 		[],
 	);
 

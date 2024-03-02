@@ -6,7 +6,8 @@ import { Button, Chip } from '@mui/material';
 import { Product } from '../../api/apiType';
 
 export interface ProductCardProps extends Product {
-	addToCart: (id: number) => void;
+	btnText: string;
+	onClick: (id: number) => void;
 }
 
 export default function ProductCard(props: ProductCardProps) {
@@ -18,7 +19,8 @@ export default function ProductCard(props: ProductCardProps) {
 		description,
 		category,
 		price,
-		addToCart,
+		btnText,
+		onClick,
 	} = props;
 	return (
 		<Card
@@ -40,11 +42,11 @@ export default function ProductCard(props: ProductCardProps) {
 					{heading}
 				</Typography>
 				<Typography variant='body2' color='text.secondary'>
-					{description}
-					{price}
+					<span>{description}</span>
+					<span>${price}</span>
 				</Typography>
-				<Button onClick={() => addToCart(id)} color='inherit'>
-					Add
+				<Button onClick={() => onClick(id)} color='inherit'>
+					{btnText}
 				</Button>
 			</CardContent>
 			<Chip

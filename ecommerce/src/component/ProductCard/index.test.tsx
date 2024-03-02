@@ -1,20 +1,51 @@
-// import { render } from 'react-dom';
-// import ProductCard from './index';
-// import { ProductCategory } from '../../pages/Products/models';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom'; // Import for custom matchers like toBeInTheDocument
+import ProductCard from './index';
+import { ProductCategory } from '../../pages/Products/models';
 
-// describe('ProductCard', () => {
-// 	const product = {
-// 		imgSrc: 'path/to/smartphone.jpg',
-// 		imgAltText: 'Smartphone Image',
-// 		heading: 'Smartphone',
-// 		description: 'High-performance smartphone with advanced features.',
-// 		category: ProductCategory.ELECTRONICS,
-// 		price: 499.99,
-// 	};
+const mockProduct = {
+	id: 1,
+	imgSrc: 'image.jpg',
+	imgAltText: 'Alt text',
+	heading: 'Product 1',
+	description: 'Description for Product 1',
+	category: ProductCategory.ELECTRONICS,
+	price: 29.99,
+};
 
-// 	it('renders correctly', () => {
-// 		const container = document.createElement('div'); // Create a container element
-// 		render(<ProductCard {...product} />, container); // Render the ProductCard component
-// 		expect(container).toMatchSnapshot();
-// 	});
-// });
+describe('ProductCard Component', () => {
+	it('renders product card with correct information', () => {
+		render(
+			<ProductCard
+				{...mockProduct}
+				btnText='Add to Cart'
+				onClick={() => {}}
+			/>,
+		);
+
+		expect(screen.getByAltText('Alt text')).toBeInTheDocument();
+		expect(screen.getByText('Product 1')).toBeInTheDocument();
+		expect(
+			screen.getByText('Description for Product 1'),
+		).toBeInTheDocument();
+		expect(screen.getByText('$29.99')).toBeInTheDocument();
+		expect(screen.getByText('Add to Cart')).toBeInTheDocument();
+		expect(
+			screen.getByText(ProductCategory.ELECTRONICS),
+		).toBeInTheDocument();
+	});
+
+	it('calls onClick handler when button is clicked', () => {
+		const onClickMock = jest.fn();
+		render(
+			<ProductCard
+				{...mockProduct}
+				btnText='Add to Cart'
+				onClick={onClickMock}
+			/>,
+		);
+
+		fireEvent.click(screen.getByText('Add to Cart'));
+		expect(onClickMock).toHaveBeenCalledWith(1);
+	});
+});

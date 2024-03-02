@@ -26,7 +26,8 @@ const ProductCardsList = (props: ProductCardsListProps) => {
 						<ProductCard
 							key={index}
 							{...product}
-							addToCart={addToCartHandler}
+							btnText='Add to Cart'
+							onClick={addToCartHandler}
 						/>
 					</Grid>
 				))}

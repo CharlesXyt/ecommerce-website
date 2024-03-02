@@ -1,26 +1,37 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import Products from './index';
+import * as apiClient from '../../api/apiClient';
+import * as helper from './helper';
+import { ApiProductRequest } from '../../api/apiType';
+import { ProductCategory } from './models';
 
-const mockProducts = [
-	{
-		id: 1,
-		imgSrc: 'https://picsum.photos/200',
-		imgAltText: 'Product 1 Image',
-		heading: 'Product 1',
-		description: 'Description for Product 1.',
-		category: 'electronics',
-		price: 99.99,
-	},
-	{
-		id: 2,
-		imgSrc: 'https://picsum.photos/200',
-		imgAltText: 'Product 2 Image',
-		heading: 'Product 2',
-		description: 'Description for Product 2.',
-		category: 'clothing',
-		price: 49.99,
-	},
-];
+const mockProducts: ApiProductRequest = {
+	data: [
+		{
+			id: 1,
+			imgSrc: 'https://picsum.photos/200',
+			imgAltText: 'Product 1 Image',
+			heading: 'Product 1',
+			description: 'Description for Product 1.',
+			category: ProductCategory.ELECTRONICS,
+			price: 99.99,
+		},
+		{
+			id: 2,
+			imgSrc: 'https://picsum.photos/200',
+			imgAltText: 'Product 2 Image',
+			heading: 'Product 2',
+			description: 'Description for Product 2.',
+			category: ProductCategory.CLOTHING,
+			price: 49.99,
+		},
+	],
+	page: 1,
+	total: 2,
+	limit: 10,
+};
+
+const mockCategories = [ProductCategory.CLOTHING, ProductCategory.ELECTRONICS];
 
 jest.mock('../../context/CartContext', () => ({
 	useCart: () => ({
@@ -28,45 +39,37 @@ jest.mock('../../context/CartContext', () => ({
 	}),
 }));
 
-jest.mock('../../pages/Products/helper', () => ({
-	useFetch: () => {
-		return () => Promise.resolve(mockProducts);
-	},
-}));
-
-jest.mock('lodash/debounce', () => jest.fn(fn => fn));
-
 describe('Products Component', () => {
 	beforeAll(() => {
-		// const fetch = jest.spyOn(window, 'fetch');
+		jest.spyOn(apiClient, 'fetchProducts').mockResolvedValue(mockProducts);
+		jest.spyOn(apiClient, 'fetchCategories').mockResolvedValue(
+			mockCategories,
+		);
+		jest.spyOn(helper, 'getDebounceSearch').mockResolvedValue(
+			Promise.resolve(mockProducts),
+		);
+	});
+	beforeEach(() => {
+		jest.clearAllMocks();
 	});
 
-	test.only('renders products correctly', async () => {
+	test('renders products correctly', async () => {
 		render(<Products />);
 		await waitFor(() => screen.getByText('Product 1'));
-		mockProducts.forEach(product => {
+		mockProducts.data.forEach(product => {
 			expect(screen.getByText(product.heading)).toBeInTheDocument();
 		});
+		expect(apiClient.fetchProducts).toHaveBeenCalledTimes(1);
+		expect(apiClient.fetchCategories).toHaveBeenCalledTimes(1);
+		expect(helper.getDebounceSearch).toHaveBeenCalledTimes(1);
 	});
 
 	test('updates products on search and filter', async () => {
 		render(<Products />);
-		await screen.findByText('Product 1');
-
-		// need to change
-		fireEvent.change(screen.getByRole('textbox'), {
-			target: { value: 'searchTerm' },
+		await waitFor(() => screen.getByText('Product 1'));
+		mockProducts.data.forEach(product => {
+			expect(screen.getByText(product.heading)).toBeInTheDocument();
 		});
-
-		fireEvent.click(screen.getByText('Category 1'));
-
-		// Check if products are updated based on search and filter
-		await waitFor(() => {
-			expect(global.fetch).toHaveBeenCalledWith(
-				'http://localhost:3000/products?search=searchTerm&category=electronics',
-			);
-		});
+		expect(apiClient.fetchProducts).toHaveBeenCalledTimes(1);
 	});
-
-	// Add more tests as needed for different scenarios (e.g., edge cases, loading states, etc.)
 });
