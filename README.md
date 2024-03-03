@@ -24,7 +24,6 @@ This project requires Node.js to be installed. and it specifically requires a ve
 ## Installation
 
 **Install backend**
-install node
 
 ```bash
     cd backend
@@ -71,10 +70,12 @@ install node
         - API integration (fetch/axios/react-query): the app is very simple, we don't need interceptors or cache in frontend, so used fetch
         - State Management (Context vs Redux): the Global State in this app is very simple and not deep nested, Context is enough to handle global state
 
-Product Listing
-
 ## Assumptions and Design Decisions
 
 Design Link: https://excalidraw.com/#json=XpCAxy5rS0jdx1bJRaRTY,hNlPAvuiObICL2ZwNu4OSw
 
-Assumptions: - assume we have a cart page for users to manage the products in cart - assume we might have multiple products, so introduced pagination, which combined with search and filter - assume when user refresh the page, we still want to keep the product in cart, so I used localstorage to store the products in cart
+Assumptions:
+
+- assume we have a cart page for users to manage the products in cart
+- assume we might have multiple products, so introduced pagination, which combined with search and filter
+- assume when user refresh the page, we still want to keep the product in cart, so I used localstorage to store the products in cart
