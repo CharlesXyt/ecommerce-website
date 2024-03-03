@@ -3,7 +3,6 @@ import {
 	render,
 	screen,
 	waitFor,
-	act,
 	within,
 } from '@testing-library/react';
 import Products from './index';
@@ -55,12 +54,6 @@ describe('Products Component', () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks();
-		jest.useFakeTimers();
-	});
-
-	afterEach(() => {
-		jest.runOnlyPendingTimers();
-		jest.useRealTimers();
 	});
 
 	it('renders products correctly', async () => {
@@ -71,10 +64,9 @@ describe('Products Component', () => {
 		});
 		expect(apiClient.fetchProducts).toHaveBeenCalledTimes(1);
 		expect(apiClient.fetchCategories).toHaveBeenCalledTimes(1);
-		act(() => {
-			jest.advanceTimersByTime(400);
-		});
-		expect(apiClient.fetchProducts).toHaveBeenCalledTimes(2);
+		await waitFor(() =>
+			expect(apiClient.fetchProducts).toHaveBeenCalledTimes(2),
+		);
 	});
 
 	it('updates products on search', async () => {
@@ -82,14 +74,13 @@ describe('Products Component', () => {
 		await waitFor(() => screen.getByText('Product 1'));
 		const searchInput = screen.getByLabelText('Search field');
 		fireEvent.change(searchInput, { target: { value: 'Product 1' } });
-		act(() => {
-			jest.advanceTimersByTime(400);
-		});
-		expect(apiClient.fetchProducts).toHaveBeenLastCalledWith({
-			search: 'Product 1',
-			_page: 1,
-			category: '',
-		});
+		await waitFor(() =>
+			expect(apiClient.fetchProducts).toHaveBeenLastCalledWith({
+				search: 'Product 1',
+				_page: 1,
+				category: '',
+			}),
+		);
 	});
 
 	it('updates products on filter', async () => {
@@ -100,13 +91,12 @@ describe('Products Component', () => {
 		await waitFor(() => expect(filterDropdown).toBeInTheDocument());
 		const { getByText } = within(filterDropdown);
 		fireEvent.click(getByText(ProductCategory.CLOTHING));
-		act(() => {
-			jest.advanceTimersByTime(400);
-		});
-		expect(apiClient.fetchProducts).toHaveBeenLastCalledWith({
-			search: '',
-			_page: 1,
-			category: ProductCategory.CLOTHING,
-		});
+		await waitFor(() =>
+			expect(apiClient.fetchProducts).toHaveBeenLastCalledWith({
+				search: '',
+				_page: 1,
+				category: ProductCategory.CLOTHING,
+			}),
+		);
 	});
 });

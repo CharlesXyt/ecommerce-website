@@ -3,6 +3,8 @@ import ProductCard from '../../../component/ProductCard';
 import { useCart } from '../../../context/CartContext';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Notification from '../../../component/Notification';
+import { useState } from 'react';
 
 interface ProductCardsListProps {
 	products: Product[];
@@ -11,8 +13,10 @@ interface ProductCardsListProps {
 const ProductCardsList = (props: ProductCardsListProps) => {
 	const { products } = props;
 	const { addToCart } = useCart();
+	const [alert, setAlert] = useState(false);
 	const addToCartHandler = (id: number) => {
 		addToCart(id, 1);
+		setAlert(true);
 	};
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -32,6 +36,14 @@ const ProductCardsList = (props: ProductCardsListProps) => {
 					</Grid>
 				))}
 			</Grid>
+			<Notification
+				onClose={() => {
+					setAlert(false);
+				}}
+				showNotification={alert}
+				message='Product added to cart successfully!'
+				type='success'
+			/>
 		</Box>
 	);
 };
