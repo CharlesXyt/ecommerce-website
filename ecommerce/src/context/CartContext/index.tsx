@@ -1,4 +1,10 @@
-import { createContext, useContext, useReducer, useEffect } from 'react';
+import {
+	createContext,
+	useContext,
+	useReducer,
+	useEffect,
+	ReactNode,
+} from 'react';
 
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
@@ -58,8 +64,7 @@ export const cartReducer = (
 				item.productId === action.payload.productId
 					? {
 							...item,
-							quantity: (item.quantity -=
-								action.payload.quantity),
+							quantity: item.quantity - action.payload.quantity,
 						}
 					: item,
 			);
@@ -87,7 +92,7 @@ export const useCart = () => {
 	return context;
 };
 
-export const CartProvider = ({ children }: { children: JSX.Element }) => {
+export const CartProvider = ({ children }: { children: ReactNode }) => {
 	const [cart, dispatch] = useReducer(cartReducer, initialState);
 
 	useEffect(() => {

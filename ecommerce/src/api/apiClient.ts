@@ -1,11 +1,32 @@
-import { PageLimit } from './apiConstant';
-import { GET_CATEGORY_URL, GET_PRODUCTS_URL } from './apiEndpoint';
+import {
+	GET_BATCH_PRODUCTS_URL,
+	GET_CATEGORY_URL,
+	GET_PRODUCTS_URL,
+} from './apiEndpoint';
 
-export const fetchProducts = async (query?: string) => {
-	if (!query) {
-		query = `?_page=1&_limit=${PageLimit}`;
+export interface fetchProductsQueryParams {
+	_page?: number;
+	category?: string;
+	search?: string;
+	_limit?: number;
+}
+
+export const fetchProducts = async (params: fetchProductsQueryParams = {}) => {
+	let query = '';
+
+	for (const [key, value] of Object.entries(params)) {
+		query += `${key}=${value}&`;
 	}
-	const response = await fetch(GET_PRODUCTS_URL + query);
+
+	const response = await fetch(`${GET_PRODUCTS_URL}?${query}`);
+	const responseJson = await response.json();
+	return responseJson;
+};
+
+export const fetchBatchProducts = async (productIds: number[]) => {
+	const response = await fetch(
+		`${GET_BATCH_PRODUCTS_URL}${productIds.join(',')}`,
+	);
 	const responseJson = await response.json();
 	return responseJson;
 };

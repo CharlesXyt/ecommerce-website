@@ -2,6 +2,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button, Chip } from '@mui/material';
 import { Product } from '../../api/apiType';
 
@@ -37,15 +38,28 @@ export default function ProductCard(props: ProductCardProps) {
 				image={imgSrc}
 				alt={imgAltText}
 			/>
-			<CardContent>
+			<CardContent
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					rowGap: '10px',
+				}}
+			>
 				<Typography gutterBottom variant='h5' component='div'>
 					{heading}
 				</Typography>
 				<Typography variant='body2' color='text.secondary'>
 					<span>{description}</span>
+				</Typography>
+				<Typography variant='body2' color='text.secondary'>
 					<span>${price}</span>
 				</Typography>
-				<Button onClick={() => onClick(id)} color='inherit'>
+				<Button
+					variant='contained'
+					color='primary'
+					startIcon={<ShoppingCartIcon />}
+					onClick={() => onClick(id)}
+				>
 					{btnText}
 				</Button>
 			</CardContent>

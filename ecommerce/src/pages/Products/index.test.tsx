@@ -1,7 +1,12 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+	fireEvent,
+	render,
+	screen,
+	waitFor,
+	act,
+} from '@testing-library/react';
 import Products from './index';
 import * as apiClient from '../../api/apiClient';
-import * as helper from './helper';
 import { ApiProductRequest } from '../../api/apiType';
 import { ProductCategory } from './models';
 
@@ -45,12 +50,16 @@ describe('Products Component', () => {
 		jest.spyOn(apiClient, 'fetchCategories').mockResolvedValue(
 			mockCategories,
 		);
-		jest.spyOn(helper, 'getDebounceSearch').mockResolvedValue(
-			Promise.resolve(mockProducts),
-		);
 	});
+
 	beforeEach(() => {
 		jest.clearAllMocks();
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.runOnlyPendingTimers();
+		jest.useRealTimers();
 	});
 
 	test('renders products correctly', async () => {
@@ -61,15 +70,37 @@ describe('Products Component', () => {
 		});
 		expect(apiClient.fetchProducts).toHaveBeenCalledTimes(1);
 		expect(apiClient.fetchCategories).toHaveBeenCalledTimes(1);
-		expect(helper.getDebounceSearch).toHaveBeenCalledTimes(1);
+		act(() => {
+			jest.advanceTimersByTime(400);
+		});
+		expect(apiClient.fetchProducts).toHaveBeenCalledTimes(2);
 	});
 
-	test('updates products on search and filter', async () => {
+	test('updates products on search', async () => {
 		render(<Products />);
 		await waitFor(() => screen.getByText('Product 1'));
-		mockProducts.data.forEach(product => {
-			expect(screen.getByText(product.heading)).toBeInTheDocument();
+		const searchInput = screen.getByLabelText('Search field');
+		act(() => {
+			fireEvent.change(searchInput, { target: { value: 'Product 1' } });
+			jest.advanceTimersByTime(400);
 		});
-		expect(apiClient.fetchProducts).toHaveBeenCalledTimes(1);
+		expect(apiClient.fetchProducts).toHaveBeenLastCalledWith({
+			search: 'Product 1',
+			_page: 1,
+			category: '',
+		});
+		expect(screen.getByText('Product 1')).toBeInTheDocument();
+		expect(screen.queryByText('Product 2')).not.toBeInTheDocument();
+	});
+
+	test('updates products on filter', async () => {
+		render(<Products />);
+		await waitFor(() => screen.getByText('Product 1'));
+		// const selectInput = screen.getByLabelText('Search field');
+		// fireEvent.change(searchInput, { target: { value: 'Product 1' } });
+		// act(() => {
+		// 	jest.advanceTimersByTime(400);
+		// });
+		// expect(screen.getByText('Product 1')).toBeInTheDocument();
 	});
 });

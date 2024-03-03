@@ -29,10 +29,10 @@ export default function Filter(props: FilterProps) {
 
 	return (
 		<FormControl fullWidth>
-			<InputLabel id='demo-simple-select-label'>Category</InputLabel>
+			<InputLabel id='category-select-label'>Category</InputLabel>
 			<Select
-				labelId='demo-simple-select-label'
-				id='demo-simple-select'
+				labelId='category-select-label'
+				id='category-select'
 				multiple
 				value={value}
 				label='Category Filter'

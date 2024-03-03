@@ -9,10 +9,11 @@ import { Box, Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { Product } from '../../api/apiType';
 import { fetchCategories, fetchProducts } from '../../api/apiClient';
-import { getDebounceSearch } from './helper';
+import { debounce } from './helper';
 import { PageLimit } from '../../api/apiConstant';
+import { useNavigate } from 'react-router-dom';
 
-const Products = () => {
+const Products: React.FC = () => {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [pageTotal, setPageTotal] = useState(0);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +21,7 @@ const Products = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filterTerm, setFilterTerm] = useState('');
 	const { cart } = useCart();
+	const navigate = useNavigate();
 
 	// unit test
 	const productCount = cart.reduce((acc, item) => acc + item.quantity, 0);
@@ -36,20 +38,19 @@ const Products = () => {
 	}, []);
 
 	const debounceSearch = useCallback(
-		async (searchTerm: string, filterTerm: string, currentPage: number) => {
-			try {
-				const responseJson = await getDebounceSearch(
-					searchTerm,
-					filterTerm,
-					currentPage,
-				);
+		debounce(
+			async (searchTerm: string, filterTerm: string, page: number) => {
+				const responseJson = await fetchProducts({
+					search: searchTerm,
+					category: filterTerm,
+					_page: page,
+				});
 				setProducts(responseJson.data);
 				setPageTotal(Math.ceil(responseJson.total / PageLimit));
 				setCurrentPage(responseJson.page);
-			} catch (error) {
-				console.log(error);
-			}
-		},
+			},
+			300,
+		),
 		[],
 	);
 
@@ -64,8 +65,13 @@ const Products = () => {
 				spacing={{ xs: 2, md: 3 }}
 				columns={{ xs: 4, sm: 8, md: 12 }}
 			>
-				<Grid item xs={4} sm={8} md={12} alignContent='end'>
-					<Cart count={productCount} handleCartClick={() => {}} />
+				<Grid item xs={4} sm={8} md={12}>
+					<Cart
+						count={productCount}
+						handleCartClick={() => {
+							navigate('/cart');
+						}}
+					/>
 				</Grid>
 				<Grid item xs={4} sm={6} md={9}>
 					<SearchInput

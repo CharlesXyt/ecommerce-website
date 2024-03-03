@@ -2,7 +2,7 @@
   "products": [
     {
       "id": 1,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-1/200/300",
       "imgAltText": "Product 1 Image",
       "heading": "Product 1",
       "description": "Description for Product 1.",
@@ -11,7 +11,7 @@
     },
     {
       "id": 2,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-2/200/300",
       "imgAltText": "Product 2 Image",
       "heading": "Product 2",
       "description": "Description for Product 2.",
@@ -20,7 +20,7 @@
     },
     {
       "id": 3,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-3/200/300",
       "imgAltText": "Product 3 Image",
       "heading": "Product 3",
       "description": "Description for Product 3.",
@@ -29,7 +29,7 @@
     },
     {
       "id": 4,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-4/200/300",
       "imgAltText": "Product 4 Image",
       "heading": "Product 4",
       "description": "Description for Product 4.",
@@ -38,7 +38,7 @@
     },
     {
       "id": 5,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-5/200/300",
       "imgAltText": "Product 5 Image",
       "heading": "Product 5",
       "description": "Description for Product 5.",
@@ -47,7 +47,7 @@
     },
     {
       "id": 6,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-6/200/300",
       "imgAltText": "Product 6 Image",
       "heading": "Product 6",
       "description": "Description for Product 6.",
@@ -56,7 +56,7 @@
     },
     {
       "id": 7,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-7/200/300",
       "imgAltText": "Product 7 Image",
       "heading": "Product 7",
       "description": "Description for Product 7.",
@@ -65,7 +65,7 @@
     },
     {
       "id": 8,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-8/200/300",
       "imgAltText": "Product 8 Image",
       "heading": "Product 8",
       "description": "Description for Product 8.",
@@ -74,7 +74,7 @@
     },
     {
       "id": 9,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-9/200/300",
       "imgAltText": "Product 9 Image",
       "heading": "Product 9",
       "description": "Description for Product 9.",
@@ -83,7 +83,7 @@
     },
     {
       "id": 10,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-10/200/300",
       "imgAltText": "Product 10 Image",
       "heading": "Product 10",
       "description": "Description for Product 10.",
@@ -92,7 +92,7 @@
     },
     {
       "id": 11,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-11/200/300",
       "imgAltText": "Product 11 Image",
       "heading": "Product 11",
       "description": "Description for Product 11.",
@@ -101,7 +101,7 @@
     },
     {
       "id": 12,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-12/200/300",
       "imgAltText": "Product 12 Image",
       "heading": "Product 12",
       "description": "Description for Product 12.",
@@ -110,7 +110,7 @@
     },
     {
       "id": 13,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-13/200/300",
       "imgAltText": "Product 13 Image",
       "heading": "Product 13",
       "description": "Description for Product 13.",
@@ -119,7 +119,7 @@
     },
     {
       "id": 14,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-14/200/300",
       "imgAltText": "Product 14 Image",
       "heading": "Product 14",
       "description": "Description for Product 14.",
@@ -128,7 +128,7 @@
     },
     {
       "id": 15,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-15/200/300",
       "imgAltText": "Product 15 Image",
       "heading": "Product 15",
       "description": "Description for Product 15.",
@@ -137,7 +137,7 @@
     },
     {
       "id": 16,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-16/200/300",
       "imgAltText": "Product 16 Image",
       "heading": "Product 16",
       "description": "Description for Product 16.",
@@ -146,7 +146,7 @@
     },
     {
       "id": 17,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-17/200/300",
       "imgAltText": "Product 17 Image",
       "heading": "Product 17",
       "description": "Description for Product 17.",
@@ -155,7 +155,7 @@
     },
     {
       "id": 18,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-18/200/300",
       "imgAltText": "Product 18 Image",
       "heading": "Product 18",
       "description": "Description for Product 18.",
@@ -164,7 +164,7 @@
     },
     {
       "id": 19,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-19/200/300",
       "imgAltText": "Product 19 Image",
       "heading": "Product 19",
       "description": "Description for Product 19.",
@@ -173,7 +173,7 @@
     },
     {
       "id": 20,
-      "imgSrc": "https://picsum.photos/200",
+      "imgSrc": "https://picsum.photos/seed/Product-20/200/300",
       "imgAltText": "Product 20 Image",
       "heading": "Product 20",
       "description": "Description for Product 20.",
