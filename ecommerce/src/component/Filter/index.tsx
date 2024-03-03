@@ -22,7 +22,6 @@ export default function Filter(props: FilterProps) {
 			typeof targetValue === 'string'
 				? targetValue.split(',')
 				: targetValue;
-		// notail
 		setValue(newValue);
 		handleFilter(newValue);
 	};
@@ -35,9 +34,9 @@ export default function Filter(props: FilterProps) {
 				id='category-select'
 				multiple
 				value={value}
-				label='Category Filter'
 				onChange={onChange}
 				renderValue={selected => selected.join(', ')}
+				data-testid='category-select'
 			>
 				{props.options.map(option => (
 					<MenuItem key={option.value} value={option.value}>

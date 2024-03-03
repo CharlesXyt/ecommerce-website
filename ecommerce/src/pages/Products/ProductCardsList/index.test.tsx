@@ -31,10 +31,9 @@ const mockProducts: Product[] = [
 ];
 
 describe('ProductCardsList Component', () => {
-	test('renders correctly with products', () => {
+	it('renders correctly with products', () => {
 		render(<ProductCardsList products={mockProducts} />);
 
-		// Check if each product card is rendered
 		mockProducts.forEach(product => {
 			expect(screen.getByAltText(product.imgAltText)).toBeInTheDocument();
 			expect(screen.getByText(product.heading)).toBeInTheDocument();
@@ -43,17 +42,4 @@ describe('ProductCardsList Component', () => {
 			).toBeInTheDocument();
 		});
 	});
-
-	// test('calls addToCartHandler when addToCart is clicked', () => {
-	// 	const { addToCart } = require('../../../context/CartContext');
-	// 	render(<ProductCardsList products={mockProducts} />);
-
-	// 	// Click the addToCart button for the first product
-	// 	fireEvent.click(screen.getByTestId('addToCartButton-1'));
-
-	// 	// Check if addToCart is called with the correct parameters
-	// 	expect(addToCart).toHaveBeenCalledWith(1, 1);
-	// });
 });
-
-// add later

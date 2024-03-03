@@ -22,7 +22,7 @@ const ProductCardsList = (props: ProductCardsListProps) => {
 				columns={{ xs: 4, sm: 8, md: 12 }}
 			>
 				{products.map((product, index) => (
-					<Grid item xs={4} sm={4} md={4} key={index}>
+					<Grid item xs={4} sm={4} md={3} key={index}>
 						<ProductCard
 							key={index}
 							{...product}

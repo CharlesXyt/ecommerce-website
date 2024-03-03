@@ -15,7 +15,7 @@ const Cart = (props: CartProps) => {
 			data-testid='cart-button'
 		>
 			<span>{count}</span>
-			<ShoppingCartIcon />
+			<ShoppingCartIcon style={{ fontSize: '2rem' }} />
 		</Button>
 	);
 };

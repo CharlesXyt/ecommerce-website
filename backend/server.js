@@ -17,7 +17,7 @@ server.get("/products/batch/:ids", (req, res) => {
 server.get("/products", (req, res) => {
   let { _page, _limit, search, category } = req.query;
   _page = parseInt(_page) || 1;
-  _limit = parseInt(_limit) || 10;
+  _limit = parseInt(_limit) || 8;
 
   let products = router.db.get("products").value();
 

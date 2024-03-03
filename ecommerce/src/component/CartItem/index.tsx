@@ -2,7 +2,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { Product } from '../../api/apiType';
 import { Box, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -56,13 +55,17 @@ const CartItem = (props: CartItemProps) => {
 					<IconButton
 						color='primary'
 						onClick={() => onAdd(product.id)}
+						data-testid='add-button'
 					>
 						<AddIcon />
 					</IconButton>
-					<Typography variant='body2'>{quantity}</Typography>
+					<Typography variant='body2' data-testid='product-quantity'>
+						{quantity}
+					</Typography>
 					<IconButton
 						color='secondary'
 						onClick={() => onRemove(product.id)}
+						data-testid='remove-button'
 					>
 						<RemoveIcon />
 					</IconButton>

@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 type DebouncedFunction<F extends (...args: any[]) => any> = (
 	...args: Parameters<F>
 ) => Promise<ReturnType<F>>;

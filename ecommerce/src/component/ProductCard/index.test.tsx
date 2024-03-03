@@ -1,5 +1,4 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom'; // Import for custom matchers like toBeInTheDocument
 import ProductCard from './index';
 import { ProductCategory } from '../../pages/Products/models';
 

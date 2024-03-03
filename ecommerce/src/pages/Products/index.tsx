@@ -1,32 +1,26 @@
 import { useEffect, useState, useCallback } from 'react';
 import ProductCardsList from './ProductCardsList';
-import Cart from '../../component/Cart';
-import { useCart } from '../../context/CartContext';
 import SearchInput from '../../component/SearchInput';
-import _debounce from 'lodash/debounce';
 import Filter from '../../component/Filter';
-import { Box, Grid } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { Product } from '../../api/apiType';
 import { fetchCategories, fetchProducts } from '../../api/apiClient';
 import { debounce } from './helper';
 import { PageLimit } from '../../api/apiConstant';
-import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../../component/LoadingSpinner';
 
 const Products: React.FC = () => {
 	const [products, setProducts] = useState<Product[]>([]);
+	const [loading, setLoading] = useState(false);
 	const [pageTotal, setPageTotal] = useState(0);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [categories, setCategories] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filterTerm, setFilterTerm] = useState('');
-	const { cart } = useCart();
-	const navigate = useNavigate();
-
-	// unit test
-	const productCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
 	useEffect(() => {
+		setLoading(true);
 		Promise.all([fetchProducts(), fetchCategories()])
 			.then(([products, categories]) => {
 				setProducts(products.data);
@@ -34,20 +28,30 @@ const Products: React.FC = () => {
 			})
 			.catch(error => {
 				console.error('Error fetching products', error);
+			})
+			.finally(() => {
+				setLoading(false);
 			});
 	}, []);
 
 	const debounceSearch = useCallback(
 		debounce(
 			async (searchTerm: string, filterTerm: string, page: number) => {
-				const responseJson = await fetchProducts({
-					search: searchTerm,
-					category: filterTerm,
-					_page: page,
-				});
-				setProducts(responseJson.data);
-				setPageTotal(Math.ceil(responseJson.total / PageLimit));
-				setCurrentPage(responseJson.page);
+				setLoading(true);
+				try {
+					const responseJson = await fetchProducts({
+						search: searchTerm,
+						category: filterTerm,
+						_page: page,
+					});
+					setProducts(responseJson.data);
+					setPageTotal(Math.ceil(responseJson.total / PageLimit));
+					setCurrentPage(responseJson.page);
+				} catch (error) {
+					console.error('Error fetching products', error);
+				} finally {
+					setLoading(false);
+				}
 			},
 			300,
 		),
@@ -59,45 +63,31 @@ const Products: React.FC = () => {
 	}, [searchTerm, filterTerm, debounceSearch, currentPage]);
 
 	return (
-		<Box sx={{ flexGrow: 1 }}>
-			<Grid
-				container
-				spacing={{ xs: 2, md: 3 }}
-				columns={{ xs: 4, sm: 8, md: 12 }}
-			>
-				<Grid item xs={4} sm={8} md={12}>
-					<Cart
-						count={productCount}
-						handleCartClick={() => {
-							navigate('/cart');
-						}}
-					/>
-				</Grid>
-				<Grid item xs={4} sm={6} md={9}>
-					<SearchInput
-						handleSearch={event =>
-							setSearchTerm(event.target.value)
-						}
-					/>
-				</Grid>
-				<Grid item xs={4} sm={2} md={3}>
-					<Box maxWidth={'400px'}>
-						<Filter
-							options={categories.map(category => ({
-								label: category,
-								value: category,
-							}))}
-							handleFilter={value =>
-								setFilterTerm(value.join(','))
-							}
-						/>
-					</Box>
-				</Grid>
-				<Grid item xs={4} sm={8} md={12}>
+		<>
+			<Grid item xs={4} sm={6} md={9}>
+				<SearchInput
+					handleSearch={event => setSearchTerm(event.target.value)}
+				/>
+			</Grid>
+			<Grid item xs={4} sm={2} md={3}>
+				<Filter
+					options={categories.map(category => ({
+						label: category,
+						value: category,
+					}))}
+					handleFilter={value => setFilterTerm(value.join(','))}
+				/>
+			</Grid>
+			<Grid item xs={4} sm={8} md={12}>
+				{loading ? (
+					<LoadingSpinner />
+				) : (
 					<ProductCardsList products={products} />
-				</Grid>
-				<Grid item xs={4} sm={8} md={12}>
-					{products && (
+				)}
+			</Grid>
+			<Grid item xs={4} sm={8} md={12} sx={{ margin: 'auto' }}>
+				{products && (
+					<Stack alignItems='center'>
 						<Pagination
 							count={pageTotal}
 							shape='rounded'
@@ -105,10 +95,10 @@ const Products: React.FC = () => {
 								setCurrentPage(page);
 							}}
 						/>
-					)}
-				</Grid>
+					</Stack>
+				)}
 			</Grid>
-		</Box>
+		</>
 	);
 };
 

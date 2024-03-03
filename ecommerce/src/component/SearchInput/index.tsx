@@ -13,6 +13,7 @@ const SearchInput = (props: SearchInputProps) => {
 			label='Search field'
 			type='search'
 			onChange={handleSearch}
+			fullWidth
 		/>
 	);
 };

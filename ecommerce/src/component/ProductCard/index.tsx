@@ -26,8 +26,6 @@ export default function ProductCard(props: ProductCardProps) {
 	return (
 		<Card
 			sx={{
-				maxWidth: 345,
-				margin: 'auto',
 				height: '100%',
 				position: 'relative',
 			}}

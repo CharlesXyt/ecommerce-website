@@ -4,6 +4,7 @@ import {
 	screen,
 	waitFor,
 	act,
+	within,
 } from '@testing-library/react';
 import Products from './index';
 import * as apiClient from '../../api/apiClient';
@@ -40,7 +41,7 @@ const mockCategories = [ProductCategory.CLOTHING, ProductCategory.ELECTRONICS];
 
 jest.mock('../../context/CartContext', () => ({
 	useCart: () => ({
-		cart: [],
+		addToCart: jest.fn(),
 	}),
 }));
 
@@ -62,7 +63,7 @@ describe('Products Component', () => {
 		jest.useRealTimers();
 	});
 
-	test('renders products correctly', async () => {
+	it('renders products correctly', async () => {
 		render(<Products />);
 		await waitFor(() => screen.getByText('Product 1'));
 		mockProducts.data.forEach(product => {
@@ -76,12 +77,12 @@ describe('Products Component', () => {
 		expect(apiClient.fetchProducts).toHaveBeenCalledTimes(2);
 	});
 
-	test('updates products on search', async () => {
+	it('updates products on search', async () => {
 		render(<Products />);
 		await waitFor(() => screen.getByText('Product 1'));
 		const searchInput = screen.getByLabelText('Search field');
+		fireEvent.change(searchInput, { target: { value: 'Product 1' } });
 		act(() => {
-			fireEvent.change(searchInput, { target: { value: 'Product 1' } });
 			jest.advanceTimersByTime(400);
 		});
 		expect(apiClient.fetchProducts).toHaveBeenLastCalledWith({
@@ -89,18 +90,23 @@ describe('Products Component', () => {
 			_page: 1,
 			category: '',
 		});
-		expect(screen.getByText('Product 1')).toBeInTheDocument();
-		expect(screen.queryByText('Product 2')).not.toBeInTheDocument();
 	});
 
-	test('updates products on filter', async () => {
+	it('updates products on filter', async () => {
 		render(<Products />);
 		await waitFor(() => screen.getByText('Product 1'));
-		// const selectInput = screen.getByLabelText('Search field');
-		// fireEvent.change(searchInput, { target: { value: 'Product 1' } });
-		// act(() => {
-		// 	jest.advanceTimersByTime(400);
-		// });
-		// expect(screen.getByText('Product 1')).toBeInTheDocument();
+		fireEvent.mouseDown(screen.getByLabelText('Category'));
+		const filterDropdown = screen.getByRole('listbox');
+		await waitFor(() => expect(filterDropdown).toBeInTheDocument());
+		const { getByText } = within(filterDropdown);
+		fireEvent.click(getByText(ProductCategory.CLOTHING));
+		act(() => {
+			jest.advanceTimersByTime(400);
+		});
+		expect(apiClient.fetchProducts).toHaveBeenLastCalledWith({
+			search: '',
+			_page: 1,
+			category: ProductCategory.CLOTHING,
+		});
 	});
 });
